@@ -158,6 +158,14 @@ if [ "$build_dir_setup_enabled" = "true" ]; then
 
 DL_DIR ?= "\${BSPDIR}/downloads/"
 EOF
+    if [ "$MACHINE" = "qemux86-64" ]; then
+        cat  >> conf/local.conf <<EOF
+IMAGE_INSTALL_remove = "sterling-backports-laird"
+PREFERRED_PROVIDER_wpa-supplicant = "wpa-supplicant"
+PREFERRED_PROVIDER_wpa-supplicant-cli = "wpa-supplicant-cli"
+PREFERRED_PROVIDER_wpa-supplicant-passphrase = "wpa-supplicant-passphrase"
+EOF
+    fi
     # Change settings according environment
     sed -e "s,MACHINE ??=.*,MACHINE ??= '$MACHINE',g" \
         -e "s,SDKMACHINE ??=.*,SDKMACHINE ??= '$SDKMACHINE',g" \
